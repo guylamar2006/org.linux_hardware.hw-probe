@@ -83,7 +83,7 @@ modules:
     sources:
       - type: archive
         url: https://ftp.gnu.org/gnu/automake/automake-1.17.tar.xz
-        sha256: 9908c75aabd49d13661d6dcb1bc382252d22cc77bf733a2d55e87f2aa2db8636
+        sha256: 8920c1fc411e13b90bf704ef9db6f29d540e76d232cb3b2c9f4dc4cc599bd990
   - name: libtool
     buildsystem: simple
     build-commands:
@@ -93,13 +93,9 @@ modules:
     sources:
       - type: archive
         url: https://ftp.gnu.org/gnu/libtool/libtool-2.5.3.tar.xz
-        sha256: 7c87a8c2c8c0fc9cd5019e402bed4292462d00a718a7cd5f11218153bf28b26f
+        sha256: 898011232cc59b6b3bbbe321b60aba9db1ac11578ab61ed0df0299458146ae2e
   - name: edid-decode
-    buildsystem: simple
-    build-commands:
-      - sed -i -e 's/ -g / -s /' Makefile
-      - make -j $FLATPAK_BUILDER_N_JOBS
-      - make install DESTDIR=$FLATPAK_DEST bindir=/bin mandir=/share/man
+    buildsystem: meson
     sources:
       - type: git
         url: https://git.linuxtv.org/edid-decode.git
@@ -115,7 +111,7 @@ modules:
     sources:
       - type: archive
         url: https://download-mirror.savannah.gnu.org/releases/dmidecode/dmidecode-3.6.tar.xz
-        sha256: 79d76735ee8e25196e2a722964cf9683f5a09581503537884b256b01389cc073
+        sha256: e40c65f3ec3dafe31ad8349a4ef1a97122d38f65004ed66575e1a8d575dd8bae
   - name: iproute2
     buildsystem: simple
     build-commands:
@@ -126,7 +122,7 @@ modules:
     sources:
       - type: archive
         url: https://mirrors.edge.kernel.org/pub/linux/utils/net/iproute2/iproute2-6.11.0.tar.xz
-        sha256: a25dac94bcdcf2f73316c7f812115ea7a5710580bad892b08a83d00c6b33dacf
+        sha256: 1f795398a04aeaacd06a8f6ace2cfd913c33fa5953ca99daae83bb5c534611c3
   - name: lm-sensors
     buildsystem: simple
     build-commands:
@@ -150,7 +146,7 @@ modules:
     sources:
       - type: archive
         url: https://cdn.kernel.org/pub/linux/utils/kernel/kmod/kmod-33.tar.xz
-        sha256: c6189dd8c5a1e8d9224e8506bd188c0cd5dfa119fd6b7e5869b3640cbe8bf92f
+        sha256: dc768b3155172091f56dc69430b5481f2d76ecd9ccb54ead8c2540dbcf5ea9bc
   - name: libusb-1
     buildsystem: simple
     build-commands:
@@ -163,7 +159,7 @@ modules:
     sources:
       - type: archive
         url: https://github.com/libusb/libusb/archive/v1.0.27.tar.gz
-        sha256: 3500f7b182750cd9ccf9be8b1df998f83df56a39ab264976bdb3307773e16f48
+        sha256: e8f18a7a36ecbb11fb820bd71540350d8f61bcd9db0d2e8c18a6fb80b214a3de
   - name: usbutils
     buildsystem: simple
     build-commands:
@@ -177,7 +173,7 @@ modules:
     sources:
       - type: archive
         url: https://mirrors.edge.kernel.org/pub/linux/utils/usb/usbutils/usbutils-018.tar.xz
-        sha256: 7593a01724bbc0fd9fe48e62bc721ceb61c76654f1d7b231b3c65f6dfbbaefa4
+        sha256: 83f68b59b58547589c00266e82671864627593ab4362d8c807f50eea923cad93
   - name: pciutils
     buildsystem: simple
     build-commands:
@@ -186,7 +182,7 @@ modules:
     sources:
       - type: archive
         url: https://github.com/pciutils/pciutils/archive/v3.13.0.tar.gz
-        sha256: d84d7096a71890f0ddddc50e88ac5a3bc7412bf48d8100fc15857a411564687d
+        sha256: 861fc26151a4596f5c3cb6f97d6c75c675051fa014959e26fb871c8c932ebc67
   - name: acpica-unix
     buildsystem: simple
     build-commands:
@@ -235,7 +231,7 @@ modules:
     sources:
       - type: archive
         url: https://mirrors.edge.kernel.org/pub/linux/utils/util-linux/v2.39/util-linux-2.39.4.tar.xz
-        sha256: 890ae8ff810247bd19e274df76e8371d202cda01ad277681b0ea88eeaa00286b
+        sha256: 6c4f8723dafd41c39d93ecbf16509fc88c33cd5bd3277880ae5a1d97a014fd0e
   - name: libx86emu
     buildsystem: simple
     build-commands:
@@ -475,7 +471,7 @@ modules:
     sources:
       - type: archive
         url: https://github.com/openSUSE/hwinfo/archive/23.3.tar.gz
-        sha256: 1ffc00d07aa1ad766e861d0d8492e2d2fa52cf537807f34e1c80e8c2d56c7115
+        sha256: ee7f1cb15bde7d6d40cc5f70e382dbaa8264a12f0b1692eba23f14ea146c0e0d
   - name: hwinfo
     only-arches:
       - aarch64
@@ -491,7 +487,7 @@ modules:
     sources:
       - type: archive
         url: https://github.com/openSUSE/hwinfo/archive/23.3.tar.gz
-        sha256: 1ffc00d07aa1ad766e861d0d8492e2d2fa52cf537807f34e1c80e8c2d56c7115
+        sha256: ee7f1cb15bde7d6d40cc5f70e382dbaa8264a12f0b1692eba23f14ea146c0e0d
   - name: hw-probe
     buildsystem: simple
     build-commands:
@@ -532,4 +528,4 @@ modules:
     sources:
       - type: archive
         url: https://www.cpan.org/src/5.0/perl-5.40.0.tar.gz
-        sha256: 0f386dccbee8e26286404b2cca144e1005be65477979beb9b1ba272d4819bcf0
+        sha256: c740348f357396327a9795d3e8323bafd0fe8a5c7835fc1cbaba0cc8dfe7161f
