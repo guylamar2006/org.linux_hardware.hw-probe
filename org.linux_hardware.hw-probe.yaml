@@ -82,7 +82,7 @@ modules:
       - make install
     sources:
       - type: archive
-        url: https://ftp.gnu.org/gnu/automake/automake-1.15.tar.xz
+        url: https://ftp.gnu.org/gnu/automake/automake-1.17.tar.xz
         sha256: 9908c75aabd49d13661d6dcb1bc382252d22cc77bf733a2d55e87f2aa2db8636
   - name: libtool
     buildsystem: simple
@@ -92,7 +92,7 @@ modules:
       - make install
     sources:
       - type: archive
-        url: https://ftp.gnu.org/gnu/libtool/libtool-2.4.6.tar.xz
+        url: https://ftp.gnu.org/gnu/libtool/libtool-2.5.3.tar.xz
         sha256: 7c87a8c2c8c0fc9cd5019e402bed4292462d00a718a7cd5f11218153bf28b26f
   - name: edid-decode
     buildsystem: simple
