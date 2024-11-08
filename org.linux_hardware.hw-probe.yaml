@@ -99,7 +99,6 @@ modules:
     sources:
       - type: git
         url: https://git.linuxtv.org/edid-decode.git
-        branch: master
         commit: 8fd97f32c8f25b6560a5766066218a72ad2e2a01
   - name: dmidecode
     buildsystem: simple
@@ -191,7 +190,6 @@ modules:
     sources:
       - type: git
         url: https://github.com/deepin-community/acpica-unix.git
-        branch: master
         commit: 9f26014f956be5f981acab4458fd2328acd2a605
   - name: hdparm
     buildsystem: simple
