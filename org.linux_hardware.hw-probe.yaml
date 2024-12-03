@@ -114,7 +114,7 @@ modules:
   - name: iproute2
     buildsystem: simple
     build-commands:
-      - ./configure --prefix=/
+      - ./configure --prefix=$FLATPAK_DEST
       - make -j $FLATPAK_BUILDER_N_JOBS
       - find . -type f | perl -lne 'print if -B and -x' | xargs strip
       - install -D ./ip/ip $FLATPAK_DEST/sbin/ip
@@ -136,7 +136,7 @@ modules:
   - name: libkmod
     buildsystem: simple
     build-commands:
-      - ./configure --disable-debug --disable-python --disable-logging --disable-test-modules --disable-manpages --prefix=/
+      - ./configure --disable-debug --disable-python --disable-logging --disable-test-modules --disable-manpages --prefix=$FLATPAK_DEST
       - sed -i -e 's/ -g / -s /' Makefile
       - make -j $FLATPAK_BUILDER_N_JOBS
       - find . -type f | perl -lne 'print if -B and -x' | xargs strip
@@ -150,7 +150,7 @@ modules:
     buildsystem: simple
     build-commands:
       - NOCONFIGURE=1 sh autogen.sh
-      - ./configure --disable-static --disable-udev --prefix=/
+      - ./configure --disable-static --disable-udev --prefix=$FLATPAK_DEST
       - sed -i -e 's/ -g / -s /' Makefile
       - make -j $FLATPAK_BUILDER_N_JOBS
       - find . -type f | perl -lne 'print if -B and -x' | xargs strip
@@ -197,7 +197,7 @@ modules:
     buildsystem: simple
     build-commands:
       - NOCONFIGURE=1 sh autogen.sh
-      - ./configure --with-nvme-devicescan --prefix=/ --with-systemdsystemunitdir=/share
+      - ./configure --with-nvme-devicescan --prefix=$FLATPAK_DEST --with-systemdsystemunitdir=/share
       - sed -i -e 's/ -g / -s /' Makefile
       - make -j $FLATPAK_BUILDER_N_JOBS
       - find . -type f | perl -lne 'print if -B and -x' | xargs strip
@@ -209,7 +209,7 @@ modules:
   - name: util-linux
     buildsystem: simple
     build-commands:
-      - ./configure --prefix=/
+      - ./configure --prefix=$FLATPAK_DEST
       - sed -i -e 's/ -g / -s /' Makefile
       - make -j $FLATPAK_BUILDER_N_JOBS dmesg
       - make -j $FLATPAK_BUILDER_N_JOBS lscpu
