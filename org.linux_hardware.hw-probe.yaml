@@ -146,7 +146,7 @@ modules:
       - type: archive
         url: https://cdn.kernel.org/pub/linux/utils/kernel/kmod/kmod-33.tar.xz
         sha256: dc768b3155172091f56dc69430b5481f2d76ecd9ccb54ead8c2540dbcf5ea9bc
-  - name: libusb-1
+  - name: libusb
     buildsystem: simple
     build-commands:
       - NOCONFIGURE=1 sh autogen.sh
@@ -161,6 +161,9 @@ modules:
         sha256: e8f18a7a36ecbb11fb820bd71540350d8f61bcd9db0d2e8c18a6fb80b214a3de
   - name: usbutils
     buildsystem: meson
+    build-options:
+      build-dependencies:
+        - libusb
     sources:
       - type: archive
         url: https://mirrors.edge.kernel.org/pub/linux/utils/usb/usbutils/usbutils-018.tar.xz
