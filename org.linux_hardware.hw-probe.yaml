@@ -146,15 +146,17 @@ modules:
       - type: archive
         url: https://cdn.kernel.org/pub/linux/utils/kernel/kmod/kmod-33.tar.xz
         sha256: dc768b3155172091f56dc69430b5481f2d76ecd9ccb54ead8c2540dbcf5ea9bc
-  - name: libusb
+  - name: libusb-1
     buildsystem: simple
     build-commands:
       - NOCONFIGURE=1 sh autogen.sh
-      - ./configure --disable-static --disable-udev --prefix=$FLATPAK_DEST
+      - ./configure --disable-static --disable-udev --prefix=$FLATPAK_DEST/app
       - sed -i -e 's/ -g / -s /' Makefile
       - make -j $FLATPAK_BUILDER_N_JOBS
       - find . -type f | perl -lne 'print if -B and -x' | xargs strip
-      - make install DESTDIR=$FLATPAK_DEST
+      - make install
+      - mkdir -p /app/lib/pkgconfig
+      - cp libusb-1.0.pc /app/lib/pkgconfig/
     sources:
       - type: archive
         url: https://github.com/libusb/libusb/archive/v1.0.27.tar.gz
@@ -162,8 +164,14 @@ modules:
   - name: usbutils
     buildsystem: meson
     build-options:
-      build-dependencies:
-        - libusb
+      env:
+        PKG_CONFIG_PATH: "/app/lib/pkgconfig"
+        CFLAGS: "-I/app/include/libusb-1.0"
+        CPPFLAGS: "-I/app/include/libusb-1.0"
+        LDFLAGS: "-L/app/lib"
+    config-opts:
+      - --prefix=$FLATPAK_DEST/app
+      - --libdir=$FLATPAK_DEST/app
     sources:
       - type: archive
         url: https://mirrors.edge.kernel.org/pub/linux/utils/usb/usbutils/usbutils-018.tar.xz
@@ -171,8 +179,8 @@ modules:
   - name: pciutils
     buildsystem: simple
     build-commands:
-      - make install PREFIX=/ DESTDIR=$FLATPAK_DEST SHARED=no LIBKMOD=no HWDB=no ZLIB=no DNS=no
-      - sed -i -e 's|/share/pci.ids|/var/tmp/P_PCI|' $FLATPAK_DEST/sbin/lspci
+      - make install PREFIX=$FLATPAK_DEST/app DESTDIR=$FLATPAK_DEST SHARED=no LIBKMOD=no HWDB=no ZLIB=no DNS=no
+      - sed -i -e 's|/app/share/pci.ids|/var/tmp/P_PCI|' $FLATPAK_DEST/bin/lspci
     sources:
       - type: archive
         url: https://github.com/pciutils/pciutils/archive/v3.13.0.tar.gz
