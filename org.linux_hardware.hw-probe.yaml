@@ -1,6 +1,6 @@
 app-id: org.linux_hardware.hw-probe
 runtime: org.kde.Platform
-runtime-version: "6.7"
+runtime-version: "6.8"
 sdk: org.kde.Sdk
 command: hw-probe
 finish-args:
@@ -163,19 +163,14 @@ modules:
         sha256: e8f18a7a36ecbb11fb820bd71540350d8f61bcd9db0d2e8c18a6fb80b214a3de
   - name: usbutils
     buildsystem: meson
-    build-options:
-      env:
-        PKG_CONFIG_PATH: "/app/lib/pkgconfig"
-        CFLAGS: "-I/app/include/libusb-1.0"
-        CPPFLAGS: "-I/app/include/libusb-1.0"
-        LDFLAGS: "-L/app/lib"
-    config-opts:
-      - --prefix=$FLATPAK_DEST/app
-      - --libdir=$FLATPAK_DEST/app
+    builddir: true
+    cleanup:
+      - /include
+      - /bin/lsusb.py
     sources:
-      - type: archive
-        url: https://mirrors.edge.kernel.org/pub/linux/utils/usb/usbutils/usbutils-018.tar.xz
-        sha256: 83f68b59b58547589c00266e82671864627593ab4362d8c807f50eea923cad93
+      - type: git
+        url: https://github.com/gregkh/usbutils.git
+        tag: v018
   - name: pciutils
     buildsystem: simple
     build-commands:
