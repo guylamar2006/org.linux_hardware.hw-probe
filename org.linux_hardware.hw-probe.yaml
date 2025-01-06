@@ -175,7 +175,7 @@ modules:
     buildsystem: simple
     build-commands:
       - make install PREFIX=$FLATPAK_DEST/app DESTDIR=$FLATPAK_DEST SHARED=no LIBKMOD=no HWDB=no ZLIB=no DNS=no
-      - sed -i -e 's|/app/share/pci.ids|/var/tmp/P_PCI|' $FLATPAK_DEST/bin/lspci
+      - sed -i -e 's|/app/share/pci.ids|/var/tmp/P_PCI|' $FLATPAK_DEST/sbin/lspci
     sources:
       - type: archive
         url: https://github.com/pciutils/pciutils/archive/v3.13.0.tar.gz
